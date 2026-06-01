@@ -1,11 +1,12 @@
 import Avatar from "./Avatar.tsx";   
 import {changeStats} from "../features/stats/statsSlice.ts";
 import { useAppSelector, useAppDispatch } from "../app/hooks.ts";
+import { FOLLOWERS, FOLLOWING } from "../utils/constants.ts";
 // import {shallowEqual} from "react-redux";
 
 const Stats = () => {
     const {name} = useAppSelector(state => state.user);
-    const {followers, following} = useAppSelector(state => state.stats);
+    const {[FOLLOWERS]: followers, [FOLLOWING]: following} = useAppSelector(state => state.stats);
     // shallowEqual is used to compare the previous and next values of the state. If they are the same, the component will not re-render.
     // const {user, stats} = useSelector(state => ({
     //     user: state.user,
@@ -22,17 +23,17 @@ const Stats = () => {
             </div>
             <div className={'stats'}>
                 <div
-                    onClick={() => dispatch(changeStats('followers', 1))}
+                    onClick={() => dispatch(changeStats(FOLLOWERS, 1))}
                     onContextMenu={e => {
                         e.preventDefault();
-                        dispatch(changeStats('followers', -1))
+                        dispatch(changeStats(FOLLOWERS, -1))
                     }}
                 >Followers: {followers}</div>
                 <div
-                    onClick={() => dispatch(changeStats('following', 1))}
+                    onClick={() => dispatch(changeStats(FOLLOWING, 1))}
                     onContextMenu={e => {
                         e.preventDefault();
-                        dispatch(changeStats('following', -1))
+                        dispatch(changeStats(FOLLOWING, -1))
                     }}
                 >Following: {following}</div>
             </div>
